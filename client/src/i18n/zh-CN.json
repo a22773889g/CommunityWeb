@@ -1,0 +1,115 @@
+{
+  "acc_error": {
+    "200": "请求成功。",
+    "400": "请求失败。",
+    "3": "连线失败",
+    "5": "资料输入不完整",
+    "6": "用户不存在。",
+    "7": "密码错误。",
+    "8": "用户已停用。",
+    "9": "用户不存在。",
+    "11": "用户不存在。",
+    "13": "游戏无法进入，请稍候再试。",
+    "18": "您输入的手机号码已注册",
+    "19": "发送认证短信过于频繁，请稍候再试。",
+    "20": "您输入的电话号码未注册。",
+    "22": "您输入的电话认证码错误。",
+    "23": "您输入的电话认证码已失效。",
+    "24": "注册失败，请稍候再试或联络客服人员。",
+    "25": "您输入的电话号码不存在。",
+    "26": "密码变更失败，请稍候再试或联络客服人员。",
+    "27": "您的登入已失效，请重新登入。",
+    "28": "非法操作",
+    "30": "二维码错误，請联系客服人员。",
+    "31": "大厅初始化失败，请联系客服人员。",
+    "32": "試玩错误，请联系客服人员。"
+  },
+  "alert": {
+    "success": "成功。",
+    "init_error": "初始化失败。"
+  },
+  "app": {
+    "broken_alert": "连线逾时",
+    "game_token_error_alert": "进入失败",
+    "is_logout": "已登出",
+    "re_login": "已从其他地方登录"
+  },
+  "setting": {
+    "change_password": "变更密码",
+    "audio": "音乐",
+    "language": "语言",
+    "customer_service": "客服",
+    "logout": "登出",
+    "back_to_lobby": "回大厅",
+    "on": "开",
+    "off": "关"
+  },
+  "login": {
+    "username": "使用者帐号",
+    "password": "密码",
+    "login_button": "登录",
+    "change_button": "变更",
+    "forgot_password_button": "忘记密码",
+    "reset_password": "重设密码",
+    "guest_login_button": "免费试玩",
+    "phone_register": "手机注册",
+    "send_token": "发送验证码",
+    "close": "关闭",
+    "other": "其他",
+    "register": "注册",
+    "resend_sms_text": "重新发送请等候 {{value}} 秒",
+    "register_success": "注册成功",
+    "phone": "手机",
+    "verify_code": "验证码",
+    "phone_register_send_success_title": "您的验证码已发送至",
+    "phone_register_success_alert_title": "您的帐号密码已发送至您的手机短信中。"
+  },
+  "game": {
+    "pk10-1": "北京 PK10",
+    "pk10-2": "竞速 PK10",
+    "pk10-3": "飞速 PK10",
+    "pk10-4": "超级 PK10",
+    "cqssc-1": "重庆时时彩",
+    "cqssc-2": "竞速时时彩",
+    "cqssc-3": "飞速时时彩",
+    "cqssc-4": "超级时时彩",
+    "allbet": "欧博",
+    "pg": "Pocket Games",
+    "niuniu-1": "重庆紅火牛",
+    "niuniu-2": "竞速紅火牛",
+    "niuniu-3": "飞速紅火牛",
+    "niuniu-4": "超级紅火牛",
+    "keno": "基诺彩",
+    "11p5": "江西11选5"
+  },
+  "game_item": {
+    "lobby": "{{value}} 厅",
+    "up_to_times": "最高 {{value}} 倍",
+    "limit_bet": "限额 {{value}}",
+    "interval_time": "{{ value }} 秒",
+    "official": "官方",
+    "please_select": "请选择"
+  },
+  "country": {
+    "china": "中国",
+    "taiwan": "台湾",
+    "malaysia": "马来西亚",
+    "singapore": "新加坡",
+    "vietnam": "越南",
+    "cambodia": "柬埔寨"
+  },
+  "banner": {
+    "deposit": "存款",
+    "withdraw": "取款",
+    "description": "存款说明",
+    "history": "纪录"
+  },
+  "tutorial": {
+    "main_title": "红火牛玩法教学",
+    "main_btn_1": "游戏下注教学",
+    "main_btn_2": "两球胜负判别",
+    "main_btn_3": "三球胜负判别",
+    "main_btn_4": "抢庄教学",
+    "main_btn_exit": "离开EXIT"
+  }
+}
