@@ -109,3 +109,21 @@ a {
     margin-right: 1vw; }
   .searchUser:hover {
     background-color: #eee; }
+
+.show {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+  .show .image {
+    background-size: cover;
+    width: 50vw;
+    height: 30vw; }
+  .show .submit {
+    width: 15vw;
+    background-color: #ef5b56;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 3vh;
+    font-weight: bold;
+    font-size: 20px; }

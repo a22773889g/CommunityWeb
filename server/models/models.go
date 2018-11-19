@@ -19,20 +19,21 @@ type User struct {
 
 //Comment Schema
 type Comment struct {
-	CommentID int    `json:"commentid"`
-	Account   string `json:"account"`
-	Avatar    string `json:"avatar"`
-	Content   string `json:"content"`
+	gorm.Model
+	Account string `json:"account"`
+	Avatar  string `json:"avatar"`
+	Content string `json:"content" sql:"type:text"`
 }
 
 //Post Schema
 type Post struct {
-	PostID   int       `json:"postid"`
-	UserID   int       `json:"userid"`
-	Like     string    `json:"like"`
-	Content  string    `json:"name"`
+	gorm.Model
+	Author   string    `json:"author"`
 	Avatar   string    `json:"avatar"`
-	Comments []Comment `json:"comments"`
+	Image    string    `json:"image"`
+	Content  string    `json:"content"`
+	Like     int       `json:"like"`
+	Comments []Comment `json:"comments[]"`
 }
 
 //Follower Schema
@@ -121,6 +122,14 @@ func GetFollowings(userid int) (userInfo []User, err error) {
 			fmt.Println(err)
 		}
 		userInfo = append(userInfo, user)
+	}
+	return
+}
+
+// AddPost add post
+func AddPost(post *Post) (err error) {
+	if err = Db.Create(post).Error; err != nil {
+		fmt.Println(err)
 	}
 	return
 }

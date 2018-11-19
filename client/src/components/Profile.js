@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { userInfo } from '../actions/userInfo'
-import Nav from '../components/Nav';
+import Nav from '../components/Nav'
 import axios from 'axios'
 class Profile extends PureComponent {
   constructor(props){
@@ -102,6 +102,7 @@ class Profile extends PureComponent {
           }     
           </div>
         </div>
+
       </div>
     )
   }

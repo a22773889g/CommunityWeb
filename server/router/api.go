@@ -127,6 +127,16 @@ func InitRouter() *gin.Engine {
 				})
 			}
 		})
+
+		api.POST("/addPost", func(c *gin.Context) {
+			var post model.Post
+			c.BindJSON(&post)
+			if err := model.AddPost(&post); err != nil {
+				c.AbortWithStatus(400)
+			} else {
+				c.AbortWithStatus(200)
+			}
+		})
 	}
 
 	return router
