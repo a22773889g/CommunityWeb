@@ -1,11 +1,12 @@
 export const addPost = (payload) => ({
     type: "ADD_POST",
-    title: payload.title,
-    content: payload.content,
+    account: payload.account,
     author: payload.author,
     avatar: payload.avatar,
-    PostDate: payload.date,
-    lastModify: payload.date,
+    content: payload.content,
+    like: payload.like,
+    image: payload.image,
     comments: payload.comments,
-    tag: payload.tag
+    lastModify: payload.date,
+    PostDate: payload.date,
 })

@@ -102,7 +102,6 @@ func InitRouter() *gin.Engine {
 
 		api.GET("/getFollowers", func(c *gin.Context) {
 			session := sessions.Default(c)
-			fmt.Println(session.Get("userid").(int))
 			if result, err := model.GetFollowers(session.Get("userid").(int)); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
@@ -116,8 +115,31 @@ func InitRouter() *gin.Engine {
 
 		api.GET("/getFollowings", func(c *gin.Context) {
 			session := sessions.Default(c)
-			fmt.Println(session.Get("userid").(int))
 			if result, err := model.GetFollowings(session.Get("userid").(int)); err != nil {
+				c.JSON(200, gin.H{
+					"data": "",
+				})
+			} else {
+				c.JSON(200, gin.H{
+					"data": result,
+				})
+			}
+		})
+
+		api.POST("/addPost", func(c *gin.Context) {
+			var post model.Post
+			c.BindJSON(&post)
+			if err := model.AddPost(&post); err != nil {
+				c.AbortWithStatus(400)
+			} else {
+				c.AbortWithStatus(200)
+			}
+		})
+
+		api.GET("/getPosts", func(c *gin.Context) {
+			session := sessions.Default(c)
+			fmt.Println("acc", session.Get("account"))
+			if result, err := model.GetPosts(session.Get("account").(string)); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
 				})

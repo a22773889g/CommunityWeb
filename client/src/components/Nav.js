@@ -88,6 +88,7 @@ class Nav extends PureComponent {
               <Link to="#"><i className="p-2 far fa-image"></i></Link>
               <Link to="#"><i className="p-2 far fa-comment"></i></Link>
               <Link to={`/profile/${this.props.userInfo.account}`}><i className="p-2 far fa-user-circle"></i></Link>
+              <Link to="/addPost"><i className="p-2 far fa-plus-square"></i></Link>
             </nav>
           </div>
         </div>
