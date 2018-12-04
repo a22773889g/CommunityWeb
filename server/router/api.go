@@ -3,9 +3,9 @@ package router
 import (
 	"fmt"
 
+	jwt "../middleware"
 	model "../models"
 	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 )
@@ -19,8 +19,6 @@ type Login struct {
 // InitRouter init router
 func InitRouter() *gin.Engine {
 	router := gin.Default()
-	store := sessions.NewCookieStore([]byte("secret"))
-	router.Use(sessions.Sessions("mysession", store))
 
 	client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
@@ -41,10 +39,10 @@ func InitRouter() *gin.Engine {
 	}))
 
 	api := router.Group("/api")
+	api.Use(jwt.ValidateToken())
 	{
 		api.GET("/getUser", func(c *gin.Context) {
-			session := sessions.Default(c)
-			if account := session.Get("account"); account == nil {
+			if account, exist := c.Get("account"); !exist {
 				c.JSON(200, gin.H{
 					"message": "請先登入",
 					"result":  -1,
@@ -55,36 +53,6 @@ func InitRouter() *gin.Engine {
 				} else {
 					c.JSON(200, result)
 				}
-			}
-		})
-
-		api.POST("/regist", func(c *gin.Context) {
-			var user model.User
-			c.BindJSON(&user)
-			if err := model.Regist(&user); err != nil {
-				c.AbortWithStatus(400)
-			} else {
-				c.AbortWithStatus(200)
-			}
-		})
-
-		api.POST("/login", func(c *gin.Context) {
-			var login Login
-			c.BindJSON(&login)
-			if result, err := model.Login(login.Account, login.Password); err != nil {
-				c.JSON(200, gin.H{
-					"message": "登入失敗",
-					"result":  -1,
-				})
-			} else {
-				session := sessions.Default(c)
-				session.Set("account", result.Account)
-				session.Set("userid", result.UserID)
-				session.Save()
-				c.JSON(200, gin.H{
-					"message": "登入成功",
-					"data":    result,
-				})
 			}
 		})
 
@@ -101,8 +69,8 @@ func InitRouter() *gin.Engine {
 		})
 
 		api.GET("/getFollowers", func(c *gin.Context) {
-			session := sessions.Default(c)
-			if result, err := model.GetFollowers(session.Get("userid").(int)); err != nil {
+			userid, _ := c.Get("userid")
+			if result, err := model.GetFollowers(int(userid.(float64))); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
 				})
@@ -114,8 +82,9 @@ func InitRouter() *gin.Engine {
 		})
 
 		api.GET("/getFollowings", func(c *gin.Context) {
-			session := sessions.Default(c)
-			if result, err := model.GetFollowings(session.Get("userid").(int)); err != nil {
+			userid, _ := c.Get("userid")
+			fmt.Println(int(userid.(float64)))
+			if result, err := model.GetFollowings(int(userid.(float64))); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
 				})
@@ -137,9 +106,8 @@ func InitRouter() *gin.Engine {
 		})
 
 		api.GET("/getPosts", func(c *gin.Context) {
-			session := sessions.Default(c)
-			fmt.Println("acc", session.Get("account"))
-			if result, err := model.GetPosts(session.Get("account").(string)); err != nil {
+			account, _ := c.Get("account")
+			if result, err := model.GetPosts(account.(string)); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
 				})
@@ -151,5 +119,31 @@ func InitRouter() *gin.Engine {
 		})
 	}
 
+	router.POST("/regist", func(c *gin.Context) {
+		var user model.User
+		c.BindJSON(&user)
+		if err := model.Regist(&user); err != nil {
+			c.AbortWithStatus(400)
+		} else {
+			c.AbortWithStatus(200)
+		}
+	})
+	router.POST("/login", func(c *gin.Context) {
+		var login Login
+		c.BindJSON(&login)
+		if result, err := model.Login(login.Account, login.Password); err != nil {
+			c.JSON(200, gin.H{
+				"message": "登入失敗",
+				"result":  -1,
+			})
+		} else {
+			token := jwt.GenerateToken(&result)
+			c.SetCookie("token", token, 1000*60*60*24*1, "/", "localhost", false, true)
+			c.JSON(200, gin.H{
+				"message": "登入成功",
+				"data":    result,
+			})
+		}
+	})
 	return router
 }
