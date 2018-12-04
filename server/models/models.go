@@ -28,21 +28,12 @@ type Comment struct {
 //Post Schema
 type Post struct {
 	gorm.Model
-<<<<<<< HEAD
-	Author   string    `json:"author"`
-	Avatar   string    `json:"avatar"`
-	Image    string    `json:"image"`
-	Content  string    `json:"content"`
-	Like     int       `json:"like"`
-	Comments []Comment `json:"comments[]"`
-=======
 	Account string `json:"account"`
 	Author  string `json:"author"`
 	Avatar  string `json:"avatar"`
 	Content string `json:"content"`
 	Like    int    `json:"like"`
 	Image   string `json:"image"`
->>>>>>> develop
 }
 
 //Follower Schema
@@ -142,8 +133,6 @@ func AddPost(post *Post) (err error) {
 	}
 	return
 }
-<<<<<<< HEAD
-=======
 
 // GetPosts get posts
 func GetPosts(account string) (posts []Post, err error) {
@@ -152,4 +141,3 @@ func GetPosts(account string) (posts []Post, err error) {
 	}
 	return
 }
->>>>>>> develop
