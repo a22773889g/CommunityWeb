@@ -37,7 +37,7 @@ class Nav extends PureComponent {
   search = (event) =>{
     const value = event.target.value;
     if(value){
-      axios.get(`http://localhost:3000/api/search?account=${value}`).then((res)=>{
+      axios.get(`http://localhost:3000/api/search?account=${value}`,{withCredentials: true}).then((res)=>{
         console.log(res.data.data);
           this.setState({
             result: res.data.data,

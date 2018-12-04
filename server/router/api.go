@@ -118,42 +118,32 @@ func InitRouter() *gin.Engine {
 			}
 		})
 
-		api.POST("/addPost", func(c *gin.Context) {
-			var post model.Post
-			c.BindJSON(&post)
-			if err := model.AddPost(&post); err != nil {
+		router.POST("/regist", func(c *gin.Context) {
+			var user model.User
+			c.BindJSON(&user)
+			if err := model.Regist(&user); err != nil {
 				c.AbortWithStatus(400)
 			} else {
 				c.AbortWithStatus(200)
 			}
 		})
+		router.POST("/login", func(c *gin.Context) {
+			var login Login
+			c.BindJSON(&login)
+			if result, err := model.Login(login.Account, login.Password); err != nil {
+				c.JSON(200, gin.H{
+					"message": "登入失敗",
+					"result":  -1,
+				})
+			} else {
+				token := jwt.GenerateToken(&result)
+				c.SetCookie("token", token, 1000*60*60*24*1, "/", "localhost", false, true)
+				c.JSON(200, gin.H{
+					"message": "登入成功",
+					"data":    result,
+				})
+			}
+		})
+		return router
 	}
-
-	router.POST("/regist", func(c *gin.Context) {
-		var user model.User
-		c.BindJSON(&user)
-		if err := model.Regist(&user); err != nil {
-			c.AbortWithStatus(400)
-		} else {
-			c.AbortWithStatus(200)
-		}
-	})
-	router.POST("/login", func(c *gin.Context) {
-		var login Login
-		c.BindJSON(&login)
-		if result, err := model.Login(login.Account, login.Password); err != nil {
-			c.JSON(200, gin.H{
-				"message": "登入失敗",
-				"result":  -1,
-			})
-		} else {
-			token := jwt.GenerateToken(&result)
-			c.SetCookie("token", token, 1000*60*60*24*1, "/", "localhost", false, true)
-			c.JSON(200, gin.H{
-				"message": "登入成功",
-				"data":    result,
-			})
-		}
-	})
-	return router
 }
