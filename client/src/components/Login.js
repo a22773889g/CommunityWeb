@@ -3,8 +3,10 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios' 
 import { userInfo } from '../actions/userInfo'
 import { connect } from 'react-redux'
+import '../sass/login.css'
 import swal  from 'sweetalert'
 import '../sass/login.css'
+
 class Login extends PureComponent {
     constructor(props) {
       super(props)
