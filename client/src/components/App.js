@@ -4,7 +4,6 @@ import { userInfo } from '../actions/userInfo'
 import Post from './Post'
 import Nav from '../components/Nav'
 class App extends PureComponent {
-  
   render() {
     return (
       <div>

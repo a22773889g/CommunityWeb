@@ -5,8 +5,12 @@ import { AnimatedSwitch } from 'react-router-transition';
 import App from '../components/App';
 import Profile from '../components/Profile';
 import Login from '../components/Login';
+<<<<<<< HEAD
 import AddPost from '../components/AddPost';
 
+=======
+import AddPost from '../components/AddPost' 
+>>>>>>> develop
 export default (
   <AnimatedSwitch 
     atEnter={{ opacity: 0 }}
