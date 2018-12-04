@@ -1,2 +1,2 @@
-css/* linguist-vendored
-sass/* linguist-vendored
+* linguist-vendored
+*.go linguist-vendored=false
