@@ -110,25 +110,6 @@ a {
   .searchUser:hover {
     background-color: #eee; }
 
-<<<<<<< HEAD
-.show {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; }
-  .show .image {
-    background-size: cover;
-    width: 50vw;
-    height: 30vw; }
-  .show .submit {
-    width: 15vw;
-    background-color: #ef5b56;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 3vh;
-    font-weight: bold;
-    font-size: 20px; }
-=======
 .showImage {
   width: 100%;
   height: 25vw;
@@ -192,7 +173,6 @@ a {
     -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
     transform: translateX(42px) rotate(-90deg) scale(0.5); }
   50% {
-    /* Hack to make FF rotate in the right direction */
     -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
     transform: translateX(42px) translateY(42px) rotate(-179deg); }
   50.1% {
@@ -204,4 +184,21 @@ a {
   100% {
     -webkit-transform: rotate(-360deg);
     transform: rotate(-360deg); } }
->>>>>>> develop
+
+.show {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+  .show .image {
+    background-size: cover;
+    width: 50vw;
+    height: 30vw; }
+  .show .submit {
+    width: 15vw;
+    background-color: #ef5b56;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 3vh;
+    font-weight: bold;
+    font-size: 20px; }

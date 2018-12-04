@@ -3,16 +3,10 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios' 
 import { userInfo } from '../actions/userInfo'
 import { connect } from 'react-redux'
-<<<<<<< HEAD
 import '../sass/login.css'
-=======
-<<<<<<< HEAD
 import swal  from 'sweetalert'
-import '../sass/login.css';
-=======
 import '../sass/login.css'
->>>>>>> master
->>>>>>> develop
+
 class Login extends PureComponent {
     constructor(props) {
       super(props)
@@ -34,7 +28,7 @@ class Login extends PureComponent {
         e.preventDefault()
 		const { account, password } = this.state
 		const context = this
-        axios.post("http://localhost:3000/api/login",{account,password},{withCredentials: true}).then((res)=>{
+        axios.post("http://localhost:3000/login",{account,password},{withCredentials: true}).then((res)=>{
             if (res.data.data){
 				swal({
 					title: "登入成功",

@@ -21,13 +21,7 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-<<<<<<< HEAD
-    "sass-loader": "^7.1.0",
-    "sweetalert": "^2.1.2",
-    "sweetalert2": "^7.28.4"
-=======
     "sass-loader": "^7.1.0"
->>>>>>> develop
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",

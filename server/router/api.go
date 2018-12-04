@@ -2,6 +2,7 @@ package router
 
 import (
 	"fmt"
+	"strconv"
 
 	jwt "../middleware"
 	model "../models"
@@ -69,8 +70,8 @@ func InitRouter() *gin.Engine {
 		})
 
 		api.GET("/getFollowers", func(c *gin.Context) {
-			userid, _ := c.Get("userid")
-			if result, err := model.GetFollowers(int(userid.(float64))); err != nil {
+			userid, _ := strconv.Atoi(c.Query("userid"))
+			if result, err := model.GetFollowers(userid); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
 				})
@@ -82,9 +83,8 @@ func InitRouter() *gin.Engine {
 		})
 
 		api.GET("/getFollowings", func(c *gin.Context) {
-			userid, _ := c.Get("userid")
-			fmt.Println(int(userid.(float64)))
-			if result, err := model.GetFollowings(int(userid.(float64))); err != nil {
+			userid, _ := strconv.Atoi(c.Query("userid"))
+			if result, err := model.GetFollowings(userid); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
 				})
@@ -107,6 +107,7 @@ func InitRouter() *gin.Engine {
 
 		api.GET("/getPosts", func(c *gin.Context) {
 			account, _ := c.Get("account")
+			fmt.Println(account)
 			if result, err := model.GetPosts(account.(string)); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
@@ -117,18 +118,7 @@ func InitRouter() *gin.Engine {
 				})
 			}
 		})
-
-		api.POST("/addPost", func(c *gin.Context) {
-			var post model.Post
-			c.BindJSON(&post)
-			if err := model.AddPost(&post); err != nil {
-				c.AbortWithStatus(400)
-			} else {
-				c.AbortWithStatus(200)
-			}
-		})
 	}
-
 	router.POST("/regist", func(c *gin.Context) {
 		var user model.User
 		c.BindJSON(&user)
