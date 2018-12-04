@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { userInfo } from '../actions/userInfo'
 import axios from 'axios'

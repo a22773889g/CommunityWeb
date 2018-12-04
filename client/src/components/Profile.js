@@ -14,7 +14,6 @@ class Profile extends PureComponent {
     }
   }
   componentDidMount = ()=>{
-    const context = this
     axios.get("http://localhost:3000/api/getFollowers",{withCredentials: true}).then((res)=>{
       console.log(res.data)
       this.setState({

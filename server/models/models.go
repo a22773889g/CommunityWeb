@@ -19,10 +19,10 @@ type User struct {
 
 //Comment Schema
 type Comment struct {
-	CommentID int    `json:"commentid"`
-	Account   string `json:"account"`
-	Avatar    string `json:"avatar"`
-	Content   string `json:"content"`
+	gorm.Model
+	Account string `json:"account"`
+	Avatar  string `json:"avatar"`
+	Content string `json:"content" sql:"type:text"`
 }
 
 //Post Schema

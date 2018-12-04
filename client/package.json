@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "braft-editor": "^2.1.30",
     "i18n": "^0.8.3",
     "i18next": "^11.9.0",
     "js-cookie": "^2.2.0",
