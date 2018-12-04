@@ -64,7 +64,7 @@ class AddPost extends PureComponent {
       content: editorState.toHTML(),
       like: like,
       image: imageUrl
-    }).then((res)=>{
+    },{withCredentials: true}).then((res)=>{
       swal({
         title: "發布成功",
         icon: "success",

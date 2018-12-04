@@ -2,6 +2,7 @@ package router
 
 import (
 	"fmt"
+	"strconv"
 
 	jwt "../middleware"
 	model "../models"
@@ -69,8 +70,8 @@ func InitRouter() *gin.Engine {
 		})
 
 		api.GET("/getFollowers", func(c *gin.Context) {
-			userid, _ := c.Get("userid")
-			if result, err := model.GetFollowers(int(userid.(float64))); err != nil {
+			userid, _ := strconv.Atoi(c.Query("userid"))
+			if result, err := model.GetFollowers(userid); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
 				})
@@ -82,9 +83,8 @@ func InitRouter() *gin.Engine {
 		})
 
 		api.GET("/getFollowings", func(c *gin.Context) {
-			userid, _ := c.Get("userid")
-			fmt.Println(int(userid.(float64)))
-			if result, err := model.GetFollowings(int(userid.(float64))); err != nil {
+			userid, _ := strconv.Atoi(c.Query("userid"))
+			if result, err := model.GetFollowings(userid); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
 				})
@@ -107,6 +107,7 @@ func InitRouter() *gin.Engine {
 
 		api.GET("/getPosts", func(c *gin.Context) {
 			account, _ := c.Get("account")
+			fmt.Println(account)
 			if result, err := model.GetPosts(account.(string)); err != nil {
 				c.JSON(200, gin.H{
 					"data": "",
@@ -117,33 +118,32 @@ func InitRouter() *gin.Engine {
 				})
 			}
 		})
-
-		router.POST("/regist", func(c *gin.Context) {
-			var user model.User
-			c.BindJSON(&user)
-			if err := model.Regist(&user); err != nil {
-				c.AbortWithStatus(400)
-			} else {
-				c.AbortWithStatus(200)
-			}
-		})
-		router.POST("/login", func(c *gin.Context) {
-			var login Login
-			c.BindJSON(&login)
-			if result, err := model.Login(login.Account, login.Password); err != nil {
-				c.JSON(200, gin.H{
-					"message": "登入失敗",
-					"result":  -1,
-				})
-			} else {
-				token := jwt.GenerateToken(&result)
-				c.SetCookie("token", token, 1000*60*60*24*1, "/", "localhost", false, true)
-				c.JSON(200, gin.H{
-					"message": "登入成功",
-					"data":    result,
-				})
-			}
-		})
-		return router
 	}
+	router.POST("/regist", func(c *gin.Context) {
+		var user model.User
+		c.BindJSON(&user)
+		if err := model.Regist(&user); err != nil {
+			c.AbortWithStatus(400)
+		} else {
+			c.AbortWithStatus(200)
+		}
+	})
+	router.POST("/login", func(c *gin.Context) {
+		var login Login
+		c.BindJSON(&login)
+		if result, err := model.Login(login.Account, login.Password); err != nil {
+			c.JSON(200, gin.H{
+				"message": "登入失敗",
+				"result":  -1,
+			})
+		} else {
+			token := jwt.GenerateToken(&result)
+			c.SetCookie("token", token, 1000*60*60*24*1, "/", "localhost", false, true)
+			c.JSON(200, gin.H{
+				"message": "登入成功",
+				"data":    result,
+			})
+		}
+	})
+	return router
 }

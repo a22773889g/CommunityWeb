@@ -14,14 +14,14 @@ class Profile extends PureComponent {
     }
   }
   componentDidMount = ()=>{
-    axios.get("http://localhost:3000/api/getFollowers",{withCredentials: true}).then((res)=>{
+    axios.get(`http://localhost:3000/api/getFollowers?account=${this.props.userInfo.account}`,{withCredentials: true}).then((res)=>{
       console.log(res.data)
       this.setState({
         follower: res.data.data
       })
     })
 
-    axios.get("http://localhost:3000/api/getFollowings",{withCredentials: true}).then((res)=>{
+    axios.get(`http://localhost:3000/api/getFollowings?account=${this.props.userInfo.account}`,{withCredentials: true}).then((res)=>{
       console.log(res.data)
       this.setState({
         following: res.data.data
@@ -35,6 +35,7 @@ class Profile extends PureComponent {
     })
   }
   render() {
+    const {articles,follower,following} = this.state
     return (
       <div>
         <Nav/>
@@ -46,9 +47,9 @@ class Profile extends PureComponent {
             <div className="col-sm">
                 <p className="name">{this.props.userInfo.account}</p>
                 <div className="row">
-                  <div className="col-sm-3">{this.state.articles.length}貼文</div>
-                  <div className="col-sm-3">{this.state.follower.length}追蹤者</div>
-                  <div className="col-sm-3">{this.state.following.length}追蹤中</div>
+                  <div className="col-sm-3">{articles?articles.length:0}貼文</div>
+                  <div className="col-sm-3">{follower?follower.length:0}追蹤者</div>
+                  <div className="col-sm-3">{following?following.length:0}追蹤中</div>
                 </div>
                 <div className="row d-flex flex-column mt-4">
                   <div className="col-sm-6">{this.props.userInfo.name}</div>
@@ -60,8 +61,8 @@ class Profile extends PureComponent {
             <hr className="mt-5"></hr>
 
           <div className="article mb-4">
-          { this.state.articles.length?
-            this.state.articles.map((article,i)=>{
+          { articles.length?
+            articles.map((article,i)=>{
 
               return <div className="pic" key={i} style={{backgroundImage:`url(${article.image})` }}>
                   <div className="cover">

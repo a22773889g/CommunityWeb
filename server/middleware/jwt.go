@@ -25,7 +25,15 @@ func GenerateToken(user *models.User) string {
 //ValidateToken validate token
 func ValidateToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		tokenString, _ := c.Request.Cookie("token")
+		tokenString, err := c.Request.Cookie("token")
+		if err != nil {
+			c.JSON(401, gin.H{
+				"status": 401,
+				"msg":    "token錯誤",
+			})
+			c.Abort()
+			return
+		}
 		token, err := jwt.Parse(tokenString.Value, func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
@@ -35,7 +43,6 @@ func ValidateToken() gin.HandlerFunc {
 
 		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 			c.Set("account", claims["account"])
-			c.Set("userid", claims["userid"])
 		} else {
 			fmt.Println(err)
 			c.JSON(401, gin.H{
