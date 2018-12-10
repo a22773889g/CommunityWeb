@@ -56,8 +56,9 @@ class AddPost extends PureComponent {
   addPost = () =>{
     const context = this
     const { editorState, like, imageUrl } = this.state
-    const { account, name , avatar } = this.props.userInfo
+    const { userid, account, name , avatar } = this.props.userInfo
     axios.post('http://localhost:3000/api/addPost',{
+      userid: userid,
       account: account,
       author: name,
       avatar: avatar,
@@ -71,6 +72,7 @@ class AddPost extends PureComponent {
         }).then((val)=>{
           if(val){
           context.props.addPost({
+            userid: userid,
             account: account,
             author: name,
             avatar: avatar,

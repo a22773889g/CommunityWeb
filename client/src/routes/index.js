@@ -14,7 +14,7 @@ export default (
     className="switch-wrapper"
   >
       <Route exact path="/" component={ App } />
-      <Route path="/profile/:account" component={ Profile } />
+      <Route path="/profile/:userid" component={ Profile } />
       <Route path="/login" component={ Login } />
       <Route path="/addPost" component={ AddPost } />
   </AnimatedSwitch>

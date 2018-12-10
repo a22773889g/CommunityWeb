@@ -43,17 +43,16 @@ func InitRouter() *gin.Engine {
 	api.Use(jwt.ValidateToken())
 	{
 		api.GET("/getUser", func(c *gin.Context) {
-			if account, exist := c.Get("account"); !exist {
+			userid, _ := strconv.Atoi(c.Query("userid"))
+			fmt.Println(userid)
+			if result, err := model.GetUser(userid); err != nil {
 				c.JSON(200, gin.H{
-					"message": "請先登入",
-					"result":  -1,
+					"data": "",
 				})
 			} else {
-				if result, err := model.Search(account.(string)); err != nil {
-					c.AbortWithStatus(400)
-				} else {
-					c.JSON(200, result)
-				}
+				c.JSON(200, gin.H{
+					"data": result,
+				})
 			}
 		})
 
@@ -118,6 +117,19 @@ func InitRouter() *gin.Engine {
 				})
 			}
 		})
+
+		// api.GET("/getFollowingsPosts", func(c *gin.Context) {
+		// 	userid, _ := strconv.Atoi(c.Query("userid"))
+		// 	if result, err := model.GetFollowingsPosts(userid); err != nil {
+		// 		c.JSON(200, gin.H{
+		// 			"data": "",
+		// 		})
+		// 	} else {
+		// 		c.JSON(200, gin.H{
+		// 			"data": result,
+		// 		})
+		// 	}
+		// })
 	}
 	router.POST("/regist", func(c *gin.Context) {
 		var user model.User
@@ -138,7 +150,7 @@ func InitRouter() *gin.Engine {
 			})
 		} else {
 			token := jwt.GenerateToken(&result)
-			c.SetCookie("token", token, 1000*60*60*24*1, "/", "localhost", false, true)
+			c.SetCookie("token", token, 60*60, "/", "localhost", false, true)
 			c.JSON(200, gin.H{
 				"message": "登入成功",
 				"data":    result,

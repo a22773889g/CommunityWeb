@@ -1,5 +1,6 @@
 export const addPost = (payload) => ({
     type: "ADD_POST",
+    userid: payload.userid,
     account: payload.account,
     author: payload.author,
     avatar: payload.avatar,

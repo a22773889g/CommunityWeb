@@ -3,6 +3,7 @@ export default (state = [], action) => {
 		case 'ADD_POST':
 			return [{
 				_id: action._id,
+				userid:action.userid,
 				account: action.account,
 				author: action.author,
                 avatar: action.avatar,

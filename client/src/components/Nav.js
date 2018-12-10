@@ -11,18 +11,20 @@ class Nav extends PureComponent {
     this.state = {
        isSearch: false,
        result: [],
-       logined: true
+       logined: true,
+       searchUserName:''
     }
   }
   componentWillMount = ()=>{
     if(!this.props.userInfo.account){
       axios.get("http://localhost:3000/api/getUser",{withCredentials: true}).then((res)=>{
-        if(res.data.result===-1){
+        console.log(res)
+        if(res.data.status===401){
           this.setState({
             logined: false
           })
         }else{
-          this.props.userInfoAction(res.data[0])
+          this.props.userInfoAction(res.data)
           this.setState({
             logined: true
           })
@@ -35,9 +37,12 @@ class Nav extends PureComponent {
     }
   }
   search = (event) =>{
-    const value = event.target.value;
-    if(value){
-      axios.get(`http://localhost:3000/api/search?account=${value}`,{withCredentials: true}).then((res)=>{
+    this.setState({
+      searchUserName: event.target.value
+    })
+    console.log(this.state.searchUserName)
+    if(event.target.value){
+      axios.get(`http://localhost:3000/api/search?account=${event.target.value}`,{withCredentials: true}).then((res)=>{
         console.log(res.data.data);
           this.setState({
             result: res.data.data,
@@ -62,7 +67,7 @@ class Nav extends PureComponent {
               <Link to="/">XXX.XXX</Link>
             </div>
            <div className="search d-flex align-items-center pl-2">
-              <input placeholder="搜尋" onChange={this.search} />
+              <input placeholder="搜尋" onChange={this.search} value={this.state.searchUserName} />
               <i className="fas fa-search"></i>
               {
                 this.state.isSearch? 
@@ -71,10 +76,16 @@ class Nav extends PureComponent {
                   <div className="content">
                     {
                       this.state.result.length?this.state.result.map((val,i)=>{
-                      return <a key={i} className="searchUser">
+                      return <Link key={i} className="searchUser" to={`/profile/${val.userid}`} onClick={()=>{
+                        this.setState({
+                          isSearch: false,
+                          searchUserName:'',
+                          result:[]
+                        })
+                      }}>
                               <img src={val.avatar} className="searchAvatar"></img>
                               <span>{val.name}</span>
-                      </a>
+                      </Link>
                      })
                      :
                      <span>查無結果。</span>
@@ -87,7 +98,7 @@ class Nav extends PureComponent {
             <nav className="d-flex justify-content-between">
               <Link to="#"><i className="p-2 far fa-image"></i></Link>
               <Link to="#"><i className="p-2 far fa-comment"></i></Link>
-              <Link to={`/profile/${this.props.userInfo.account}`}><i className="p-2 far fa-user-circle"></i></Link>
+              <Link to={`/profile/${this.props.userInfo.userid}`}><i className="p-2 far fa-user-circle"></i></Link>
               <Link to="/addPost"><i className="p-2 far fa-plus-square"></i></Link>
             </nav>
           </div>
