@@ -17,14 +17,14 @@ class Nav extends PureComponent {
   }
   componentWillMount = ()=>{
     if(!this.props.userInfo.account){
-      axios.get("http://localhost:3000/api/getUser",{withCredentials: true}).then((res)=>{
+      axios.get("http://localhost:3000/api/getProfile",{withCredentials: true}).then((res)=>{
         console.log(res)
         if(res.data.status===401){
           this.setState({
             logined: false
           })
         }else{
-          this.props.userInfoAction(res.data)
+          this.props.userInfoAction(res.data.data)
           this.setState({
             logined: true
           })

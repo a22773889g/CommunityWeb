@@ -123,6 +123,18 @@ a {
   border-radius: 5px;
   font-size: 20px; }
 
+.follow {
+  font-size: 17px;
+  border-radius: 5px;
+  padding: 3px 25px 3px 25px;
+  background-color: #29b9f2; }
+
+.followed {
+  font-size: 17px;
+  border-radius: 5px;
+  padding: 3px 25px 3px 25px;
+  background-color: #ef7070; }
+
 .sk-spinner-wandering-cubes.sk-spinner {
   margin: 0 auto;
   width: 32px;

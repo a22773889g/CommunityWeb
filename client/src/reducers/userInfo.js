@@ -8,7 +8,7 @@ export default (state = {}, action) => {
       account: action.account,
       name: action.name,
       avatar: action.avatar,
-      introduction: action.introduction
+      introduction: action.introduction,
     }
 
   default:

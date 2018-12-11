@@ -55,7 +55,19 @@ func InitRouter() *gin.Engine {
 				})
 			}
 		})
-
+		api.GET("/getProfile", func(c *gin.Context) {
+			userid, _ := c.Get("userid")
+			fmt.Println(userid)
+			if result, err := model.GetUser(int(userid.(float64))); err != nil {
+				c.JSON(200, gin.H{
+					"data": "",
+				})
+			} else {
+				c.JSON(200, gin.H{
+					"data": result,
+				})
+			}
+		})
 		api.GET("/search", func(c *gin.Context) {
 			if result, err := model.Search(c.Query("account")); err != nil {
 				c.JSON(200, gin.H{
@@ -91,6 +103,16 @@ func InitRouter() *gin.Engine {
 				c.JSON(200, gin.H{
 					"data": result,
 				})
+			}
+		})
+
+		api.POST("/follow", func(c *gin.Context) {
+			var following model.Following
+			c.BindJSON(&following)
+			if err := model.Follow(&following); err != nil {
+				c.AbortWithStatus(400)
+			} else {
+				c.AbortWithStatus(200)
 			}
 		})
 

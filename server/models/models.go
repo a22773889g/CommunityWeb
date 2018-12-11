@@ -142,6 +142,18 @@ func GetFollowings(userid int) (userInfo []User, err error) {
 	return
 }
 
+//Follow Follow someone
+func Follow(following *Following) (err error) {
+	if err = Db.Create(following).Error; err != nil {
+		fmt.Println(err)
+	}
+	follower := Follower{UserID: following.FollowingID, FollowerID: following.UserID}
+	if err = Db.Create(&follower).Error; err != nil {
+		fmt.Println(err)
+	}
+	return
+}
+
 // AddPost add post
 func AddPost(post *Post) (err error) {
 	if err = Db.Create(post).Error; err != nil {
