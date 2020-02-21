@@ -28,7 +28,7 @@ class Login extends PureComponent {
         e.preventDefault()
 		const { account, password } = this.state
 		const context = this
-        axios.post("http://localhost:3000/login",{account,password},{withCredentials: true}).then((res)=>{
+        axios.post("http://localhost:8080/login",{account,password},{withCredentials: true}).then((res)=>{
             if (res.data.data){
 				swal({
 					title: "登入成功",

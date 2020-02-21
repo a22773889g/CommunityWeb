@@ -17,7 +17,7 @@ class Nav extends PureComponent {
   }
   componentWillMount = ()=>{
     if(!this.props.userInfo.account){
-      axios.get("http://localhost:3000/api/getProfile",{withCredentials: true}).then((res)=>{
+      axios.get("http://localhost:8080/api/getProfile",{withCredentials: true}).then((res)=>{
         console.log(res)
         if(res.data.status===401){
           this.setState({
@@ -42,7 +42,7 @@ class Nav extends PureComponent {
     })
     console.log(this.state.searchUserName)
     if(event.target.value){
-      axios.get(`http://localhost:3000/api/search?account=${event.target.value}`,{withCredentials: true}).then((res)=>{
+      axios.get(`http://localhost:8080/api/search?account=${event.target.value}`,{withCredentials: true}).then((res)=>{
         console.log(res.data.data);
           this.setState({
             result: res.data.data,

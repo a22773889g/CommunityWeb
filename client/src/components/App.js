@@ -13,7 +13,7 @@ class App extends PureComponent {
   }
   
   // componentDidMount = ()=>{
-  //     axios.get(`http://localhost:3000/api/getFollowingsPosts`,{withCredentials: true}).then((res)=>{
+  //     axios.get(`http://localhost:8080/api/getFollowingsPosts`,{withCredentials: true}).then((res)=>{
   //       this.setState({
   //         articles: res.data.data
   //       })

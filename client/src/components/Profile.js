@@ -31,21 +31,21 @@ class Profile extends PureComponent {
   }
 
   getFollowers = (userid=this.props.userInfo.userid)=>{
-    axios.get(`http://localhost:3000/api/getFollowers?userid=${userid}`,{withCredentials: true}).then((res)=>{
+    axios.get(`http://localhost:8080/api/getFollowers?userid=${userid}`,{withCredentials: true}).then((res)=>{
       this.setState({
         follower: res.data.data
       })
     })
   }
   getFollowings = (userid=this.props.userInfo.userid)=>{
-    axios.get(`http://localhost:3000/api/getFollowings?userid=${userid}`,{withCredentials: true}).then((res)=>{
+    axios.get(`http://localhost:8080/api/getFollowings?userid=${userid}`,{withCredentials: true}).then((res)=>{
       this.setState({
         following: res.data.data
       })
     })
   }
   getPosts = ()=>{
-    axios.get(`http://localhost:3000/api/getPosts`,{withCredentials: true}).then((res)=>{
+    axios.get(`http://localhost:8080/api/getPosts`,{withCredentials: true}).then((res)=>{
       this.setState({
         articles: res.data.data
       })
@@ -53,7 +53,7 @@ class Profile extends PureComponent {
   }
 
   getProfile = (userid=this.props.userInfo.userid)=>{
-    axios.get(`http://localhost:3000/api/getUser?userid=${userid}`,{withCredentials: true}).then((res)=>{
+    axios.get(`http://localhost:8080/api/getUser?userid=${userid}`,{withCredentials: true}).then((res)=>{
       console.log(res.data.data)
       this.setState({
         profile: res.data.data
@@ -78,7 +78,7 @@ class Profile extends PureComponent {
   }
 
   follow = (user) =>{
-    axios.post(`http://localhost:3000/api/follow`,{userid:this.props.userInfo.userid,followingid:user.userid},{withCredentials: true}).then((res)=>{
+    axios.post(`http://localhost:8080/api/follow`,{userid:this.props.userInfo.userid,followingid:user.userid},{withCredentials: true}).then((res)=>{
       if(this.state.following){
         this.setState({
           follower: [...this.state.follower,user]

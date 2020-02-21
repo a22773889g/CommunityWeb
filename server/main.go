@@ -9,5 +9,5 @@ func main() {
 	defer model.Db.Close()
 	router := api.InitRouter()
 
-	router.Run(":3000")
+	router.Run(":8080")
 }

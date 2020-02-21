@@ -172,7 +172,7 @@ func InitRouter() *gin.Engine {
 			})
 		} else {
 			token := jwt.GenerateToken(&result)
-			c.SetCookie("token", token, 60*60, "/", "localhost", false, true)
+			c.SetCookie("token", token, 60*60, "/", "localhost", 4, false, true)
 			c.JSON(200, gin.H{
 				"message": "登入成功",
 				"data":    result,

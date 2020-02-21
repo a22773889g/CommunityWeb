@@ -57,7 +57,7 @@ class AddPost extends PureComponent {
     const context = this
     const { editorState, like, imageUrl } = this.state
     const { userid, account, name , avatar } = this.props.userInfo
-    axios.post('http://localhost:3000/api/addPost',{
+    axios.post('http://localhost:8080/api/addPost',{
       userid: userid,
       account: account,
       author: name,
