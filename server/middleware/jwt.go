@@ -27,7 +27,7 @@ func ValidateToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenString, err := c.Request.Cookie("token")
 		if err != nil {
-			c.JSON(401, gin.H{
+			c.JSON(200, gin.H{
 				"status": 401,
 				"msg":    "token錯誤",
 			})
@@ -43,9 +43,10 @@ func ValidateToken() gin.HandlerFunc {
 
 		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 			c.Set("account", claims["account"])
+			c.Set("userid", claims["userid"])
 		} else {
 			fmt.Println(err)
-			c.JSON(401, gin.H{
+			c.JSON(200, gin.H{
 				"status": 401,
 				"msg":    "token錯誤",
 			})

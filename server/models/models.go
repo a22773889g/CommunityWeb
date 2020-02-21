@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql" //driver
@@ -19,33 +20,40 @@ type User struct {
 
 //Comment Schema
 type Comment struct {
-	gorm.Model
-	Account string `json:"account"`
-	Avatar  string `json:"avatar"`
-	Content string `json:"content" sql:"type:text"`
+	CommentID int    `json:"commentid" gorm:"primary_key"`
+	Account   string `json:"account"`
+	Avatar    string `json:"avatar"`
+	Content   string `json:"content" sql:"type:text"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time
 }
 
 //Post Schema
 type Post struct {
-	gorm.Model
-	Account string `json:"account"`
-	Author  string `json:"author"`
-	Avatar  string `json:"avatar"`
-	Content string `json:"content"`
-	Like    int    `json:"like"`
-	Image   string `json:"image"`
+	PostID    int    `json:"postid" gorm:"primary_key"`
+	UserID    int    `json:"userid"`
+	Account   string `json:"account"`
+	Author    string `json:"author"`
+	Avatar    string `json:"avatar"`
+	Content   string `json:"content"`
+	Like      int    `json:"like"`
+	Image     string `json:"image"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time
 }
 
 //Follower Schema
 type Follower struct {
-	gorm.Model
+	ID         int `json:"id" gorm:"primary_key"`
 	UserID     int `json:"userid"`
 	FollowerID int `json:"followerid"`
 }
 
 //Following Schema
 type Following struct {
-	gorm.Model
+	ID          int `json:"id" gorm:"primary_key"`
 	UserID      int `json:"userid"`
 	FollowingID int `json:"followingid"`
 }
@@ -84,9 +92,17 @@ func Regist(user *User) (err error) {
 	return
 }
 
-// Search get user's information
+// GetUser get user's information
+func GetUser(userid int) (userInfo User, err error) {
+	if err = Db.Select("user_id, account, user_name, avatar, introduction").Where("user_id = ?", userid).Find(&userInfo).Error; err != nil {
+		fmt.Println(err)
+	}
+	return
+}
+
+// Search search user's information
 func Search(account string) (userInfo []User, err error) {
-	if err = Db.Select("account, user_name, avatar, introduction").Where("account LIKE ?", "%"+account+"%").Find(&userInfo).Error; err != nil {
+	if err = Db.Select("user_id,account, user_name, avatar, introduction").Where("account LIKE ?", "%"+account+"%").Find(&userInfo).Error; err != nil {
 		fmt.Println(err)
 	}
 	return
@@ -126,6 +142,18 @@ func GetFollowings(userid int) (userInfo []User, err error) {
 	return
 }
 
+//Follow Follow someone
+func Follow(following *Following) (err error) {
+	if err = Db.Create(following).Error; err != nil {
+		fmt.Println(err)
+	}
+	follower := Follower{UserID: following.FollowingID, FollowerID: following.UserID}
+	if err = Db.Create(&follower).Error; err != nil {
+		fmt.Println(err)
+	}
+	return
+}
+
 // AddPost add post
 func AddPost(post *Post) (err error) {
 	if err = Db.Create(post).Error; err != nil {
@@ -141,3 +169,14 @@ func GetPosts(account string) (posts []Post, err error) {
 	}
 	return
 }
+
+// func GetFollowingsPosts(userid int)(posts []Post,err error){
+// 	if followings, err := GetFollowings(userid); err!=nil{
+// 		fmt.Println(err)
+// 	}else{
+// 		for _,val range followings{
+
+// 		}
+// 	}
+// 	return
+// }

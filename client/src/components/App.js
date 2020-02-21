@@ -4,6 +4,22 @@ import { userInfo } from '../actions/userInfo'
 import Post from './Post'
 import Nav from '../components/Nav'
 class App extends PureComponent {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       articles:[]
+    }
+  }
+  
+  // componentDidMount = ()=>{
+  //     axios.get(`http://localhost:3000/api/getFollowingsPosts`,{withCredentials: true}).then((res)=>{
+  //       this.setState({
+  //         articles: res.data.data
+  //       })
+  //     })
+  // }
+
   render() {
     return (
       <div>

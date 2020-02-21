@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-
 export default class Post extends PureComponent {
     constructor(props){
         super(props)
@@ -9,7 +8,6 @@ export default class Post extends PureComponent {
             like: false
         }
     }
-
     changeLike = () =>{
         this.setState({
             like : !this.state.like
