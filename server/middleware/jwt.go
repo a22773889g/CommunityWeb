@@ -3,7 +3,7 @@ package middleware
 import (
 	"fmt"
 
-	models "../models"
+	models "github.com/a22773889g/CommunityWeb/server/models"
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )

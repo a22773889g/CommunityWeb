@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
-	jwt "../middleware"
-	model "../models"
+	jwt "github.com/a22773889g/CommunityWeb/server/middleware"
+	model "github.com/a22773889g/CommunityWeb/server/models"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
@@ -172,7 +172,7 @@ func InitRouter() *gin.Engine {
 			})
 		} else {
 			token := jwt.GenerateToken(&result)
-			c.SetCookie("token", token, 60*60, "/", "localhost", 4, false, true)
+			c.SetCookie("token", token, 60*60, "/", "localhost", false, true)
 			c.JSON(200, gin.H{
 				"message": "登入成功",
 				"data":    result,
