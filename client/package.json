@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "braft-editor": "^2.1.30",
     "i18n": "^0.8.3",
     "i18next": "^11.9.0",
