@@ -16,12 +16,12 @@
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
     "react-router-transition": "^1.2.1",
-    "react-scripts": "1.1.5",
+    "react-scripts": "5.0.1",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^13.2.0",
     "sweetalert": "^2.1.2"
   },
   "scripts": {
